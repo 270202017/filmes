@@ -34,7 +34,7 @@ app.post('/novo', (req, res) => {
     });
 });
 
-app.get('/lista', (req, res) => {
+app.get('/', (req, res) => {
     
     req.db.collection('filmes').find().toArray((error, data) => {
         if(error){
@@ -45,7 +45,52 @@ app.get('/lista', (req, res) => {
     });
 });
 
-app.get('/lista/:id', (req, res) => {
+app.get('/:nome', (req, res) => {
+    
+    let query = { 
+        nome: req.params.nome
+    };
+
+    req.db.collection('filmes').find(query, (error, data) => {
+        if(error){
+            res.status(500).send('Erro ao acessar o banco de dados');
+            return;
+        }
+        res.send(data);
+    });
+});
+
+app.get('/:genero', (req, res) => {
+    
+    let query = { 
+        genero: req.params.genero
+    };
+
+    req.db.collection('filmes').find(query, (error, data) => {
+        if(error){
+            res.status(500).send('Erro ao acessar o banco de dados');
+            return;
+        }
+        res.send(data);
+    });
+});
+
+app.get('/:pontuacao', (req, res) => {
+    
+    let query = { 
+        pontuacao: req.params.pontuacao
+    };
+
+    req.db.collection('filmes').find(query, (error, data) => {
+        if(error){
+            res.status(500).send('Erro ao acessar o banco de dados');
+            return;
+        }
+        res.send(data);
+    });
+});
+
+app.get('/:id', (req, res) => {
     
     let query = { 
         _id: ObjectID(req.params.id)
