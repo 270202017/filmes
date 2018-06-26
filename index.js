@@ -5,7 +5,7 @@ const ObjectID = require('mongodb').ObjectID;
 const cors = require('cors');
 const app = express();
 
-app.use(expressMongoDb('mongodb://165.227.221.155/filmes'));
+app.use(expressMongoDb('mongodb://filmes:filmes123@165.227.221.155/filmes'));
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -45,6 +45,21 @@ app.get('/lista', (req, res) => {
     });
 });
 
+app.get('/lista/:id', (req, res) => {
+    
+    let query = { 
+        _id: ObjectID(req.params.id)
+    };
+
+    req.db.collection('filmes').findOne(query, (error, data) => {
+        if(error){
+            res.status(500).send('Erro ao acessar o banco de dados');
+            return;
+        }
+        res.send(data);
+    });
+});
+
 app.put('/auto/:id', (req, res) => {
 
     let filme = formato(req.body);
@@ -76,4 +91,4 @@ app.delete('/delete/:id', (req, res) => {
     });
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
