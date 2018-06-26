@@ -51,7 +51,7 @@ app.get('/:nome', (req, res) => {
         nome: req.params.nome
     };
 
-    req.db.collection('filmes').find(query, (error, data) => {
+    req.db.collection('filmes').find(query).toArray((error, data) => {
         if(error){
             res.status(500).send('Erro ao acessar o banco de dados');
             return;
@@ -66,7 +66,7 @@ app.get('/:genero', (req, res) => {
         genero: req.params.genero
     };
 
-    req.db.collection('filmes').find(query, (error, data) => {
+    req.db.collection('filmes').find(query).toArray((error, data) => {
         if(error){
             res.status(500).send('Erro ao acessar o banco de dados');
             return;
@@ -81,7 +81,7 @@ app.get('/:pontuacao', (req, res) => {
         pontuacao: req.params.pontuacao
     };
 
-    req.db.collection('filmes').find(query, (error, data) => {
+    req.db.collection('filmes').find(query).toArray((error, data) => {
         if(error){
             res.status(500).send('Erro ao acessar o banco de dados');
             return;
