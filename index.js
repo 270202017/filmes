@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/:nome', (req, res) => {
+app.get('/nome/:nome', (req, res) => {
     
     let query = { 
         nome: req.params.nome
@@ -60,7 +60,7 @@ app.get('/:nome', (req, res) => {
     });
 });
 
-app.get('/:genero', (req, res) => {
+app.get('/genero/:genero', (req, res) => {
     
     let query = { 
         genero: req.params.genero
@@ -75,10 +75,10 @@ app.get('/:genero', (req, res) => {
     });
 });
 
-app.get('/:pontuacao', (req, res) => {
+app.get('/pontuacao/:pontuacao', (req, res) => {
     
     let query = { 
-        pontuacao: req.params.pontuacao
+        pontuacao: String(req.params.pontuacao)
     };
 
     req.db.collection('filmes').find(query).toArray((error, data) => {
